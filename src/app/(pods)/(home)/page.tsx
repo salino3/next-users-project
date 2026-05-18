@@ -35,6 +35,7 @@ export default function HomePage() {
   useEffect(() => {
     handleCallUsers();
   }, [currentUser]);
+  console.log("clog5", currentUser);
 
   return (
     <div className="rootHomePage">

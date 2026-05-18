@@ -1,6 +1,6 @@
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { useShallow } from "zustand/shallow";
-import { loginFormFn } from "@/app/utils/login-form-function";
+import { ActionState, loginFormFn } from "@/app/utils/login-form-function";
 import { useAppStore } from "@/app/store/provider";
 
 export const LoginForm = () => {
@@ -10,18 +10,16 @@ export const LoginForm = () => {
     })),
   );
 
-  const [state, formAction, isPending] = useActionState(
-    async (prevState: any, formData: FormData) => {
-      const result = await loginFormFn(prevState, formData);
-
-      if (result.success && result.user) {
-        setUser(result.user);
-      }
-
-      return result;
-    },
+  const [state, formAction, isPending] = useActionState<ActionState, FormData>(
+    loginFormFn,
     { success: false, error: "" },
   );
+
+  useEffect(() => {
+    if (state.success && state.user) {
+      setUser(state.user);
+    }
+  }, [state.success, state.user, setUser]);
 
   return (
     <form action={formAction}>
