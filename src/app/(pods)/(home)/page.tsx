@@ -1,10 +1,11 @@
 "use client";
 
-import { use } from "react";
+import { Suspense } from "react";
+import { useShallow } from "zustand/shallow";
+import { useAppStore } from "@/app/store/provider";
+import { UserList } from "@/app/components/users-list";
 import { User } from "@/app/store/interface";
 import "./home.styles.scss";
-import { useAppStore } from "@/app/store/provider";
-import { useShallow } from "zustand/shallow";
 
 interface Props {
   usersPromise: Promise<User[]>;
@@ -19,18 +20,12 @@ export default function HomePage({ usersPromise }: Props) {
 
   console.log(users);
 
-  const usersData = use(usersPromise);
-
-  console.log(usersData);
-
   return (
     <div className="rootHomePage">
       <h1>Title</h1>
-      <ul>
-        {usersData.map((user) => (
-          <li key={user.id}>{user.name}</li>
-        ))}
-      </ul>
+      <Suspense fallback={<div>Loading users from server...</div>}>
+        <UserList usersPromise={usersPromise} />
+      </Suspense>
     </div>
   );
 }

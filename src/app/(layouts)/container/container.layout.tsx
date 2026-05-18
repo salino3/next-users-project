@@ -1,18 +1,17 @@
-import { Suspense } from "react";
+"use server";
+import { getUsers } from "@/app/hooks/get-fetch-users";
 import HomePage from "@/app/(pods)/(home)/page";
-import { User } from "@/app/store/interface";
 import "./container.styles.scss";
 
-interface Props {
-  usersPromise: Promise<User[]>;
-}
+export default async function ContainerLayout() {
+  const usersPromise = getUsers();
 
-export default function ContainerLayout({ usersPromise }: Props) {
   return (
     <div className="rootContainerLayout">
-      <Suspense fallback={<div>Loading users from server...</div>}>
-        <HomePage usersPromise={usersPromise} />
-      </Suspense>
+      <header>
+        <h2>Header title</h2>
+      </header>
+      <HomePage usersPromise={usersPromise} />
     </div>
   );
 }
