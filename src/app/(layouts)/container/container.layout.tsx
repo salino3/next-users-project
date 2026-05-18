@@ -1,5 +1,4 @@
 "use server";
-import { getUsers } from "@/app/hooks/get-fetch-users";
 import HomePage from "@/app/(pods)/(home)/page";
 import "./container.styles.scss";
 

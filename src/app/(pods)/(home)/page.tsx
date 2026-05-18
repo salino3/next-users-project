@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { useShallow } from "zustand/shallow";
 import { getUsersList } from "@/app/hooks/get-fetch-users";
 import { useAppStore } from "@/app/store/provider";
