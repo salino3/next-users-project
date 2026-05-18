@@ -1,3 +1,5 @@
+"use client";
+
 import ContainerLayout from "./(layouts)/container/container.layout";
 import "./page.module.scss";
 

@@ -1,3 +1,5 @@
+"use client";
+
 import "./container.styles.scss";
 
 export default function ContainerLayout() {
