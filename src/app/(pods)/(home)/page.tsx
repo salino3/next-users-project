@@ -2,20 +2,19 @@
 
 import { Suspense, useState } from "react";
 import { useShallow } from "zustand/shallow";
+import { getUsersList } from "@/app/hooks/get-fetch-users";
 import { useAppStore } from "@/app/store/provider";
 import { UserList } from "@/app/components/users-list";
-import { User } from "@/app/store/interface";
 import "./home.styles.scss";
-import { getUsers } from "@/app/hooks/get-fetch-users";
 
 export default function HomePage() {
-  const { users } = useAppStore(
+  const { users, getUsers } = useAppStore(
     useShallow((state) => ({
       users: state.users,
+      getUsers: state.getUsers,
     })),
   );
 
-  const [usersData, setUsersData] = useState<User[]>([]);
   const [isPending, setIsPending] = useState<boolean>(false);
 
   console.log(users);
@@ -23,10 +22,10 @@ export default function HomePage() {
   //
   const handleCallUsers = async () => {
     setIsPending(true);
-    await getUsers()
+    await getUsersList()
       .then((res) => {
         setIsPending;
-        setUsersData(res);
+        getUsers(res);
       })
       .finally(() => setIsPending(false));
   };
@@ -37,8 +36,8 @@ export default function HomePage() {
       <button onClick={() => handleCallUsers()}>Call Users List</button>
       {isPending ? (
         <div>Fetching users from server...</div>
-      ) : usersData && usersData.length > 0 ? (
-        <UserList usersData={usersData} />
+      ) : users && users.length > 0 ? (
+        <UserList usersData={users} />
       ) : null}
     </div>
   );

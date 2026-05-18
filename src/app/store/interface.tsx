@@ -33,6 +33,7 @@ export interface AppStoreProps {
   currentUser: User | null;
   setUser: (user: User) => void;
   clearUser: () => void;
+  getUsers: (users: User[]) => void;
   theme: ThemeApp;
 }
 

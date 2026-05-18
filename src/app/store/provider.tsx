@@ -9,6 +9,7 @@ export const useAppStore = create<AppStoreProps>()(
       currentUser: initialUserData,
       setUser: (userData: User) => set((state) => ({ currentUser: userData })),
       clearUser: () => set((state) => ({ currentUser: initialUserData })),
+      getUsers: (usersData: User[]) => set((state) => ({ users: usersData })),
       theme: ThemeApp.dark,
     }),
     {

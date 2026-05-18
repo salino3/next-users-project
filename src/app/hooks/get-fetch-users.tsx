@@ -2,7 +2,7 @@
 
 import { fetchUsersList } from "@/lib/controllers/controller";
 
-export const getUsers = async () => {
+export const getUsersList = async () => {
   try {
     return await fetchUsersList();
   } catch (error) {
