@@ -1,15 +1,11 @@
 "use client";
-import { use } from "react";
 import { User } from "@/app/store/interface";
 
 interface Props {
-  usersPromise: Promise<User[]>;
+  usersData: User[];
 }
 
-export function UserList({ usersPromise }: Props) {
-  // React only pauses rendering right here inside this sub-component
-  const usersData = use(usersPromise);
-
+export function UserList({ usersData }: Props) {
   console.log(usersData);
   return (
     <ul>
