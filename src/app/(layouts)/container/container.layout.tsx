@@ -1,0 +1,14 @@
+"use server";
+import HomePage from "@/app/(pods)/(home)/page";
+import "./container.styles.scss";
+
+export default async function ContainerLayout() {
+  return (
+    <div className="rootContainerLayout">
+      <header>
+        <h2>Header title</h2>
+      </header>
+      <HomePage />
+    </div>
+  );
+}
