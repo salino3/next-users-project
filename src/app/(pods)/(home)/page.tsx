@@ -16,22 +16,30 @@ export default function HomePage() {
   );
 
   const [usersData, setUsersData] = useState<User[]>([]);
+  const [isPending, setIsPending] = useState<boolean>(false);
 
   console.log(users);
 
   //
   const handleCallUsers = async () => {
-    const data = await getUsers();
-    setUsersData(data);
+    setIsPending(true);
+    await getUsers()
+      .then((res) => {
+        setIsPending;
+        setUsersData(res);
+      })
+      .finally(() => setIsPending(false));
   };
 
   return (
     <div className="rootHomePage">
       <h1>Title</h1>
       <button onClick={() => handleCallUsers()}>Call Users List</button>
-      <Suspense fallback={<div>Loading users from server...</div>}>
+      {isPending ? (
+        <div>Fetching users from server...</div>
+      ) : usersData && usersData.length > 0 ? (
         <UserList usersData={usersData} />
-      </Suspense>
+      ) : null}
     </div>
   );
 }
