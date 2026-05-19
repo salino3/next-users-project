@@ -9,11 +9,12 @@ import "./home.styles.scss";
 import { LoginForm } from "@/app/components/login-form/login-form-component";
 
 export default function HomePage() {
-  const { users, currentUser, getUsers } = useAppStore(
+  const { users, currentUser, getUsers, clearUser } = useAppStore(
     useShallow((state) => ({
       users: state.users,
       currentUser: state.currentUser,
       getUsers: state.getUsers,
+      clearUser: state.clearUser,
     })),
   );
 
@@ -33,15 +34,27 @@ export default function HomePage() {
   };
 
   useEffect(() => {
-    handleCallUsers();
+    if (currentUser) {
+      handleCallUsers();
+    }
   }, [currentUser]);
-  console.log("clog5", currentUser);
 
   return (
     <div className="rootHomePage">
       <h1>Title</h1>
 
-      {currentUser ? null : <LoginForm />}
+      {currentUser ? (
+        <button
+          onClick={() => {
+            clearUser();
+            getUsers([]);
+          }}
+        >
+          Logout
+        </button>
+      ) : (
+        <LoginForm />
+      )}
 
       {isPending && currentUser ? (
         <div>Fetching users from server...</div>

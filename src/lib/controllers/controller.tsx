@@ -10,7 +10,10 @@ export async function fetchUsersList(): Promise<User[]> {
 }
 
 //
-export async function fetchUserdata(id: string): Promise<User> {
+export async function fetchUserdata(id: string): Promise<User | string> {
+  if (!id) {
+    throw new Error("User ID missed");
+  }
   return fetch(`${CONSTANT_LIB_APP.ENDPOINS.GET_ALL_USERS}/${id}`).then(
     (res) => {
       if (!res.ok) throw new Error("Failed to fetch user");

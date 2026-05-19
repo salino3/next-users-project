@@ -15,9 +15,13 @@ export async function loginFormFn(
 ): Promise<ActionState> {
   try {
     const id = formData.get("id") as string;
-    const authenticatedUser = await fetchUserdata(id);
+    const authenticatedUser = (await fetchUserdata(id)) as User | undefined;
 
-    return { success: true, error: "", user: authenticatedUser };
+    if (authenticatedUser) {
+      return { success: true, error: "", user: authenticatedUser };
+    } else {
+      return { success: true, error: "" };
+    }
   } catch (err) {
     return { success: false, error: "Failed to authenticate user" };
   }
