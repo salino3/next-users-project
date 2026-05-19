@@ -1,0 +1,21 @@
+#formLogin {
+  display: flex;
+  flex-direction: column;
+
+  fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .boxInput {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      .boxErrorIdForm {
+        min-height: 20px;
+        color: red;
+        text-decoration: underline;
+      }
+    }
+  }
+}

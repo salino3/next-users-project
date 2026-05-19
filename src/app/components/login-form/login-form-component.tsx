@@ -3,6 +3,7 @@ import { useShallow } from "zustand/shallow";
 import { ActionState, loginFormFn } from "@/app/utils/login-form-function";
 import { useAppStore } from "@/app/store/provider";
 import { SubmitLoginForm } from "../submit-login-form/submit-login-form.component";
+import "./login-form.styles.scss";
 
 export const LoginForm = () => {
   const { setUser } = useAppStore(
@@ -23,10 +24,10 @@ export const LoginForm = () => {
   }, [state.success, state.user, setUser]);
 
   return (
-    <form action={formAction}>
+    <form id="formLogin" action={formAction}>
       <fieldset disabled={isPending} className={"flex flex-col gap-2"}>
         <legend>Login Form</legend>
-        <div>
+        <div className="boxInput">
           <label htmlFor="id">Id User</label>
           <input
             type="number"
@@ -35,7 +36,11 @@ export const LoginForm = () => {
             name="id"
             id="id"
           />
+          <div className="boxErrorIdForm">
+            {state.error && <strong>{state.error}</strong>}
+          </div>
         </div>
+
         <SubmitLoginForm />
       </fieldset>
     </form>
