@@ -14,7 +14,8 @@ export async function loginFormFn(
   formData: FormData,
 ): Promise<ActionState> {
   try {
-    const authenticatedUser = await fetchUserdata("2");
+    const id = formData.get("id") as string;
+    const authenticatedUser = await fetchUserdata(id);
 
     return { success: true, error: "", user: authenticatedUser };
   } catch (err) {
